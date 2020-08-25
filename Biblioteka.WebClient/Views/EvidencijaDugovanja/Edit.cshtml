@@ -1,0 +1,57 @@
+﻿@model Biblioteka.Domain.Dto.EvidencijaDugovanjaDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Azuriranje evidencije dugovanja</h1>
+
+<h4>Evidencija dugovanja</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DatumZaduzivanja" class="control-label">Datum zaduzenja</label>
+                <input asp-for="DatumZaduzivanja" class="form-control" />
+                <span asp-validation-for="DatumZaduzivanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatumRazduzivanja" class="control-label">Datum razduzenja</label>
+                <input asp-for="DatumRazduzivanja" class="form-control" />
+                <span asp-validation-for="DatumRazduzivanja" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Naslovi:</label>
+
+                @Html.DropDownListFor(model => model.Naslov.Id, new SelectList(ViewBag.Naslovi, "Id", "Naziv"), "Selektuj naslov", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Naslov.Id, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <label class="control-label">Clanovi:</label>
+
+                @Html.DropDownListFor(model => model.Clan.Id, new SelectList(ViewBag.Clanovi, "Id", "ImePrezime"), "Selektuj studenta", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Clan.Id, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <label asp-for="UkupnaCena" class="control-label">Ukupna cena</label>
+                <input asp-for="UkupnaCena" class="form-control" />
+                <span asp-validation-for="UkupnaCena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sacuvaj" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Vrati se nazad</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

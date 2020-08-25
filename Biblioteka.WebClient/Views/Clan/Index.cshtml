@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Biblioteka.Domain.Dto.ClanDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Clanovi</h1>
+
+<p>
+    <a asp-action="Create">Kreiraj novi</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImePrezime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JMBG)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImePrezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JMBG)
+            </td>
+            <td>
+                @Html.ActionLink("Azuriraj", "Edit", new { id=item.Id}) |
+                @Html.ActionLink("Obrisi", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

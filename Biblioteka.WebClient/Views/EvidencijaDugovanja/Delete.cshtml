@@ -1,0 +1,50 @@
+﻿@model Biblioteka.Domain.Dto.EvidencijaDugovanjaDto
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Brisanje</h1>
+
+<h3>Da li ste sigurni da zelite da obrisete?</h3>
+<div>
+    <h4>Evidencija dugovanja</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumZaduzivanja)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumZaduzivanja)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumRazduzivanja)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumRazduzivanja)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Clan.ImePrezime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Clan.ImePrezime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Naslov.Naziv)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naslov.Naziv)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UkupnaCena)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UkupnaCena)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Obrisi" class="btn btn-danger" /> |
+        <a asp-action="Index">Vrati se nazad</a>
+    </form>
+</div>
