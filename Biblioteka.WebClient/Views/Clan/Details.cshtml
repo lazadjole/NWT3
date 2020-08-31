@@ -1,0 +1,57 @@
+﻿@model Biblioteka.Domain.Dto.ClanDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalji o clanu</h1>
+
+<div>
+    <h4>Clan</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Ime i prezime
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ImePrezime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JMBG)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JMBG)
+        </dd>
+    </dl>
+</div>
+<br />
+<br />
+<br />
+<h4>Trenutna dugovanja</h4>
+<br />
+<div id="Evidencije">
+    
+
+</div>
+
+<div>
+    @Html.ActionLink("Azuriraj", "Edit", new {id = Model.Id}) |
+    <a asp-action="Index">Vrati se nazad</a>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '@Url.Action("GetZaduzenja", "Clan")',
+                data: { id: @Model.Id },
+                cache: false,
+                type: "GET",
+                success: function(data) {
+                    $('#Evidencije').html(data);
+                }
+            });
+        });
+    </script>
+}

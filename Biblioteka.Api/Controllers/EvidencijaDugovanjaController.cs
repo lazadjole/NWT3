@@ -23,6 +23,28 @@ namespace Biblioteka.Api.Controllers
             return Ok(_evidencijaDugovanjaService.GetAll());
         }
 
+        [HttpGet("gettrenutnozaduzeno")]
+        public ActionResult<IList<EvidencijaDugovanjaDto>> GetTrenutnoZaduzeno()
+        {
+            return Ok(_evidencijaDugovanjaService.GetTrenutnoZaduzeno());
+        }
+
+
+        [HttpGet("getbyclan/{id}")]
+        public ActionResult<IList<EvidencijaDugovanjaDto>> GetByIdClan(string id)
+        {
+            int idClan = int.Parse(id);
+            return Ok(_evidencijaDugovanjaService.GetByIdClan(idClan));
+        }
+
+        [HttpGet("getbynaslov/{id}")]
+        public ActionResult<IList<EvidencijaDugovanjaDto>> GetByIdNaslov(string id)
+        {
+            int idClan = int.Parse(id);
+            return Ok(_evidencijaDugovanjaService.GetByIdNaslov(idClan));
+        }
+
+
         [HttpGet("get/{id}")]
         public ActionResult<EvidencijaDugovanjaDto> Get(string id)
         {

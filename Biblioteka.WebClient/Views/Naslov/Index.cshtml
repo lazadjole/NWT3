@@ -9,50 +9,57 @@
 <p>
     <a asp-action="Create">Kreiraj novi</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naziv)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Autor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Jezik)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vrsta)
-            </th>
-            <th>
-                Cena po danu
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Autor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Jezik.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vrsta.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CenaPoDanu)
-            </td>
-            <td>
-                @Html.ActionLink("Azuriraj", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+<br />
+<div class="row">
+
+    <div class="col-md-3" id="jezici">
+        <label class="control-label">Pretrazi po jeziku:</label>
+        <div>
+            @Html.DropDownList(
+                "Jezici",
+                new SelectList(@ViewBag.Jezici, "Id", "Naziv"),
+                "Selektuj jezik..",
+                new
+                {
+                    @class = "form-control",
+                    @onchange = "OnSelectedJezik(this.value)"
+                })
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div id="Naslovi">
+
+</div>
+@section Scripts{
+    <script type="text/javascript">
+
+        function OnSelectedJezik(jezik) {
+
+            var idJezika = jezik;
+            if(idJezika === "")
+            {
+                idJezika = 0;
+            }
+            $.ajax({
+                url: '@Url.Action("GetByJezik", "Naslov")',
+                data: { id: idJezika },
+                success:   function(result) {
+                    $('#Naslovi').html(result);
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '@Url.Action("Get", "Naslov")',
+                cache: false,
+                type: "GET",
+                success: function(data) {
+                    $('#Naslovi').html(data);
+                }
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>

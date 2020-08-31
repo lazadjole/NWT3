@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ApiClient;
 using Biblioteka.ApiClient;
 using Biblioteka.Domain.Dto;
@@ -24,7 +25,31 @@ namespace Biblioteka.WebClient.Controllers
 
         public ActionResult Index()
         {
-            return View(_naslovClient.GetAll());
+            List<JezikDto> jezici = new List<JezikDto>(_naslovClient.GetJezike());
+            List<VrstaDto> vrste = new List<VrstaDto>(_naslovClient.GetVrste());
+            ViewBag.Vrste = vrste;
+            ViewBag.Jezici = jezici;
+            return View();
+        }
+
+        public ActionResult Get()
+        {
+            return PartialView("_NasloviList", _naslovClient.GetAll());
+        }
+        public ActionResult Details(int id)
+        {
+            NaslovDto naslovDto = _naslovClient.GetById(id);
+            return View(naslovDto);
+        }
+
+        public ActionResult GetByJezik(int id)
+        {
+            return PartialView("_NasloviList", _naslovClient.GetAll().Where(t=>t.Jezik.Id == id));
+        }
+
+        public ActionResult GetZaduzenja(int id)
+        {
+            return PartialView("_EvidencijaDugovanjaList", _naslovClient.GetEvidencijuDugovanja(id));
         }
 
         public ActionResult Create()

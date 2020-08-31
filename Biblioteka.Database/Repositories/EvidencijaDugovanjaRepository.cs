@@ -73,6 +73,22 @@ namespace Biblioteka.Database.Repositories
             _context.SaveChanges();
         }//Delete()
 
+        public IEnumerable<EvidencijaDugovanja> GetByIdClan(int id)
+        {
+            return _evidencijaDugovanjaMapper.Map<IEnumerable<EvidencijaDugovanja>>(_context.EvidencijaDugovanjaModel.Where(
+                    t=>t.IdClan == id)
+                .Include(t => t.IdClanNavigation)
+                .Include(u => u.IdNaslovNavigation));
+        }
+
+        public IEnumerable<EvidencijaDugovanja> GetByIdNaslov(int id)
+        {
+            return _evidencijaDugovanjaMapper.Map<IEnumerable<EvidencijaDugovanja>>(_context.EvidencijaDugovanjaModel.Where(
+                    t => t.IdNaslov == id)
+                .Include(t => t.IdClanNavigation)
+                .Include(u => u.IdNaslovNavigation));
+        }
+
         #endregion
     }//class
 }//namespace

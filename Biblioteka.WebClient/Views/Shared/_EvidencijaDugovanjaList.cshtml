@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Biblioteka.Domain.Dto.EvidencijaDugovanjaDto>
+
+
+<table class="table" id="Evidencije">
+    <thead>
+    <tr>
+        <th>Datum zaduzenja</th>
+        <th>Datum razduzenja</th>
+        <th>Naslov</th>
+        <th>Clan</th>
+        <th>Ukupna cena</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumZaduzivanja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatumRazduzivanja)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Naslov.Naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Clan.ImePrezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UkupnaCena)
+            </td>
+            <td>
+                @Html.ActionLink("Azuriraj", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

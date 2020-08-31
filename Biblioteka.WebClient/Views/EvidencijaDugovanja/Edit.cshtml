@@ -14,12 +14,12 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DatumZaduzivanja" class="control-label">Datum zaduzenja</label>
-                <input asp-for="DatumZaduzivanja" class="form-control" />
+                <input asp-for="DatumZaduzivanja" class="form-control" id="datumOd" />
                 <span asp-validation-for="DatumZaduzivanja" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DatumRazduzivanja" class="control-label">Datum razduzenja</label>
-                <input asp-for="DatumRazduzivanja" class="form-control" />
+                <input asp-for="DatumRazduzivanja" class="form-control" id="datumDo" />
                 <span asp-validation-for="DatumRazduzivanja" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -27,6 +27,7 @@
 
                 @Html.DropDownListFor(model => model.Naslov.Id, new SelectList(ViewBag.Naslovi, "Id", "Naziv"), "Selektuj naslov", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Naslov.Id, "", new { @class = "text-danger" })
+
 
             </div>
             <div class="form-group">
@@ -54,4 +55,5 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
 }

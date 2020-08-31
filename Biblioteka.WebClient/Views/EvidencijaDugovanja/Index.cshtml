@@ -9,40 +9,61 @@
 <p>
     <a asp-action="Create">Kreiraj novi</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Datum zaduzenja</th>
-            <th>Datum razduzenja</th>
-            <th>Naslov</th>
-            <th>Clan</th>
-            <th>Ukupna cena</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumZaduzivanja)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DatumRazduzivanja)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naslov.Naziv)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Clan.ImePrezime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UkupnaCena)
-            </td>
-            <td>
-                @Html.ActionLink("Azuriraj", "Edit", new {id=item.Id}) |
-                @Html.ActionLink("Obrisi", "Delete", new {id=item.Id})
-            </td>
-        </tr>
+
+<br>
+
+<p class="form-group">
+    <label class="form-check-inline">
+        Prikazi samo trenutno zaduzeno
+    </label>
+    <input type="checkbox" onclick="FilterItems()" id="checkbox1" value=""/>
+</p>
+
+<br>
+
+
+<div id="Evidencije">
+
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        function FilterItems() {
+
+
+            $("#checkbox1").on('change', function() {
+                if ($(this).is(':checked')) {
+                    $(this).attr('value', 'true');
+                    $.ajax({
+                        url: '@Url.Action("GetTrenutnoZaduzene", "EvidencijaDugovanja")',
+                        cache: false,
+                        type: "GET",
+                        success: function(data) {
+                            $('#Evidencije').html(data)
+                        }
+                    });
+                } else {
+                    $(this).attr('value', 'false');
+                    $.ajax({
+                        url: '@Url.Action("Get", "EvidencijaDugovanja")',
+                        cache: false,
+                        type: "GET",
+                        success: function(data) {
+                            $('#Evidencije').html(data);
+                        }
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '@Url.Action("Get", "EvidencijaDugovanja")',
+                cache: false,
+                type: "GET",
+                success: function(data) {
+                    $('#Evidencije').html(data);
+                }
+            });
+        });
+    </script>
 }
-    </tbody>
-</table>

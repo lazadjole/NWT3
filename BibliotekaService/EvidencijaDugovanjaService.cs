@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Biblioteka.Domain.DomainObjects;
 using Biblioteka.Domain.Dto;
@@ -32,6 +33,12 @@ namespace Biblioteka.Service
                 .GetAll());
         }
 
+        public IEnumerable<EvidencijaDugovanjaDto> GetTrenutnoZaduzeno()
+        {
+            return _evidencijaDugovanjaMapper.Map<IEnumerable<EvidencijaDugovanjaDto>>(_evidencijaDugovanjaRepository
+                .GetAll().Where(t=>t.DatumRazduzivanja == null));
+        }
+
         public void Add(EvidencijaDugovanjaDto value)
         {
             EvidencijaDugovanja evidencijaDugovanja = _evidencijaDugovanjaMapper.Map<EvidencijaDugovanja>(value);
@@ -56,6 +63,17 @@ namespace Biblioteka.Service
                 .GetById(id));
         }
 
+        public IEnumerable<EvidencijaDugovanjaDto> GetByIdClan(int id)
+        {
+            return _evidencijaDugovanjaMapper.Map<IEnumerable<EvidencijaDugovanjaDto>>(_evidencijaDugovanjaRepository
+                .GetByIdClan(id));
+        }
+
+        public IEnumerable<EvidencijaDugovanjaDto> GetByIdNaslov(int id)
+        {
+            return _evidencijaDugovanjaMapper.Map<IEnumerable<EvidencijaDugovanjaDto>>(_evidencijaDugovanjaRepository
+                .GetByIdNaslov(id));
+        }
         #endregion
     }//class
 }//namespace

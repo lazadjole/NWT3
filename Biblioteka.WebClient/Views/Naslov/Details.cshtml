@@ -1,0 +1,63 @@
+﻿@model Biblioteka.Domain.Dto.NaslovDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalji</h1>
+
+<div>
+    <h4>Naslov</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Autor)
+        </dd>
+        <dt class="col-sm-2">
+            Cena po danu
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CenaPoDanu)
+        </dd>
+    </dl>
+</div>
+
+<br />
+<br />
+<br />
+<h4>Evidencija zaduzivanja</h4>
+<br />
+<div id="Evidencije">
+
+
+</div>
+<div>
+    @Html.ActionLink("Azuriraj", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Vrati se nazad</a>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $.ajax({
+                url: '@Url.Action("GetZaduzenja", "Naslov")',
+                data: { id: @Model.Id },
+                cache: false,
+                type: "GET",
+                success: function(data) {
+                    $('#Evidencije').html(data);
+                }
+            });
+        });
+    </script>
+}

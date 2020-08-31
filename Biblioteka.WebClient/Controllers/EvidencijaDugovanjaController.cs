@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ApiClient;
 using Biblioteka.Domain.Dto;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,32 @@ namespace Biblioteka.WebClient.Controllers
 
         public ActionResult Index()
         {
-            return View(_evidencijaDugovanjaClient.GetAll());
+            return View();
+
         }
 
+        public ActionResult GetTrenutnoZaduzene()
+        {
+            return PartialView("_EvidencijaDugovanjaList", _evidencijaDugovanjaClient.GetTrenutnoZaduzeno());
+        }
+
+        public ActionResult Get()
+        {
+            return PartialView("_EvidencijaDugovanjaList", _evidencijaDugovanjaClient.GetAll());
+        }
+
+        public ActionResult GetByClan(int id)
+        {
+            var zana = _evidencijaDugovanjaClient.GetTrenutnoZaduzeno();
+            return PartialView("_EvidencijaDugovanjaList", zana);
+        }
+
+
+        public ActionResult<NaslovDto> GetNaslovById(int id)
+        {
+            NaslovDto naslovDto = _evidencijaDugovanjaClient.GetNaslovById(id);
+            return naslovDto;
+        }
         public ActionResult Create()
         {
             List<NaslovDto> naslovi = new List<NaslovDto>(_evidencijaDugovanjaClient.GetNaslove());

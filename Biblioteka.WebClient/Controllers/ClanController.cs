@@ -26,9 +26,27 @@ namespace Biblioteka.WebClient.Controllers
             return View(_clanClient.GetAll());
         }
 
+        public ActionResult Details(int id)
+        {
+            ClanDto clanDto = _clanClient.GetById(id);
+            return View(clanDto);
+        }
+
+
+        public ActionResult GetZaduzenja(int id)
+        {
+            return PartialView("_EvidencijaDugovanjaList", _clanClient.GetTrenutnoZaduzeno(id));
+        }
+
+
         public ActionResult Create()
         {
             return View();
+        }
+
+        public ActionResult GetTrenutnoZaduzeno(int id)
+        {
+            return PartialView("_EvidencijaDugovanjaList", _clanClient.GetTrenutnoZaduzeno(id));
         }
 
         [HttpPost]

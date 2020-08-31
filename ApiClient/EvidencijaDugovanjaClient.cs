@@ -24,6 +24,16 @@ namespace ApiClient
                 .ReadAsStringAsync().Result);
         }
 
+        public IEnumerable<EvidencijaDugovanjaDto> GetTrenutnoZaduzeno()
+        {
+            HttpClient httpClient = GetHttpClient();
+            UrlBuilder urlBuilder = new UrlBuilder(this.ApiSettings);
+            HttpResponseMessage httpResponseMessage =
+                httpClient.GetAsync(urlBuilder.Append(ControllerName).Append("gettrenutnozaduzeno").GetUrl()).Result;
+            return JsonConvert.DeserializeObject<List<EvidencijaDugovanjaDto>>(httpResponseMessage.Content
+                .ReadAsStringAsync().Result);
+        }
+
         public IEnumerable<NaslovDto> GetNaslove()
         {
             HttpClient httpClient = GetHttpClient();
@@ -31,6 +41,16 @@ namespace ApiClient
             HttpResponseMessage httpResponseMessage =
                 httpClient.GetAsync(urlBuilder.Append("api/naslov").GetUrl()).Result;
             return JsonConvert.DeserializeObject<List<NaslovDto>>(httpResponseMessage.Content
+                .ReadAsStringAsync().Result);
+        }
+
+        public NaslovDto GetNaslovById(int id)
+        {
+            HttpClient httpClient = GetHttpClient();
+            UrlBuilder urlBuilder = new UrlBuilder(this.ApiSettings);
+            HttpResponseMessage httpResponseMessage =
+                httpClient.GetAsync(urlBuilder.Append("api/naslov/get").Append(id.ToString()).GetUrl()).Result;
+            return JsonConvert.DeserializeObject<NaslovDto>(httpResponseMessage.Content
                 .ReadAsStringAsync().Result);
         }
 

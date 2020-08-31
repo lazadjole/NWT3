@@ -31,8 +31,9 @@
                 @Html.DisplayFor(modelItem => item.JMBG)
             </td>
             <td>
-                @Html.ActionLink("Azuriraj", "Edit", new { id=item.Id}) |
-                @Html.ActionLink("Obrisi", "Delete", new { id=item.Id })
+                @Html.ActionLink("Azuriraj", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detalji", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Obrisi", "Delete", new { id = item.Id })
             </td>
         </tr>
 }

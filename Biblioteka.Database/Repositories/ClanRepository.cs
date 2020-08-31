@@ -24,7 +24,6 @@ namespace Biblioteka.Database.Repositories
         {
            return _clanMapper.Map<IEnumerable<Clan>>(_context.ClanModel);
         }
-
         public void Save(Clan value)
         {
             ClanModel clan =

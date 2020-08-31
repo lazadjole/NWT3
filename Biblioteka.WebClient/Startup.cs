@@ -25,6 +25,8 @@ namespace Biblioteka.WebClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
             services.Configure<ApiSettingsModel>(Configuration.GetSection("ApiSettings"));
         }
 

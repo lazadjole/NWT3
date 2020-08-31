@@ -26,6 +26,16 @@ namespace Biblioteka.ApiClient
                 .ReadAsStringAsync().Result);
         }
 
+        public IEnumerable<EvidencijaDugovanjaDto> GetEvidencijuDugovanja(int id)
+        {
+            HttpClient httpClient = GetHttpClient();
+            UrlBuilder urlBuilder = new UrlBuilder(this.ApiSettings);
+            HttpResponseMessage httpResponseMessage =
+                httpClient.GetAsync(urlBuilder.Append("api/evidencijadugovanja/getbynaslov").Append(id.ToString()).GetUrl()).Result;
+            return JsonConvert.DeserializeObject<List<EvidencijaDugovanjaDto>>(httpResponseMessage.Content
+                .ReadAsStringAsync().Result);
+        }
+
         public IEnumerable<JezikDto> GetJezike()
         {
             HttpClient httpClient = GetHttpClient();
